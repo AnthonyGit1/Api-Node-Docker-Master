@@ -1,22 +1,29 @@
 # API de Libros con Node.js, MongoDB y Docker
 
-Este proyecto implementa una API RESTful para gestionar una colección de libros, utilizando Node.js, Express y MongoDB. La aplicación está dockerizada para facilitar su despliegue y uso.
+![Versión](https://img.shields.io/badge/versión-1.0.0-blue.svg)
+![Licencia](https://img.shields.io/badge/licencia-MIT-green.svg)
+
+Este proyecto implementa una API RESTful simple para gestionar una colección de libros, utilizando Node.js, Express y MongoDB. La aplicación está dockerizada para facilitar su despliegue y uso en cualquier entorno.
 
 ## Características
 
-- API RESTful completa con operaciones CRUD
-- Base de datos MongoDB para almacenamiento persistente
-- Dockerización de la aplicación y la base de datos
-- Datos de ejemplo precargados
+- ✅ API RESTful completa con operaciones CRUD
+- 📊 Base de datos MongoDB para almacenamiento persistente
+- 🐳 Dockerización de la aplicación y la base de datos
+- 📚 Datos de ejemplo precargados
+- 🔍 Filtrado de resultados
+- 📝 Documentación completa de endpoints
 
 ## Rutas de la API
 
-- `GET /api/books`: Obtener todos los libros
-- `GET /api/books?author=Nombre&genre=Género`: Filtrar libros por diferentes campos
-- `GET /api/books/:isbn`: Obtener un libro específico por ISBN
-- `POST /api/books`: Crear un nuevo libro
-- `PUT /api/books/:isbn`: Actualizar un libro existente o crear uno nuevo
-- `DELETE /api/books/:isbn`: Eliminar un libro
+| Método | Ruta | Descripción |
+|--------|------|-------------|
+| `GET` | `/api/books` | Obtener todos los libros |
+| `GET` | `/api/books?author=Nombre&genre=Género` | Filtrar libros por diferentes campos |
+| `GET` | `/api/books/:isbn` | Obtener un libro específico por ISBN |
+| `POST` | `/api/books` | Crear un nuevo libro |
+| `PUT` | `/api/books/:isbn` | Actualizar un libro existente o crear uno nuevo |
+| `DELETE` | `/api/books/:isbn` | Eliminar un libro |
 
 ## Requisitos previos
 
@@ -24,6 +31,8 @@ Este proyecto implementa una API RESTful para gestionar una colección de libros
 - Git
 
 ## Instalación y ejecución
+
+### Opción 1: Despliegue con Docker (Recomendado)
 
 1. Clonar el repositorio:
    ```bash
@@ -38,7 +47,7 @@ Este proyecto implementa una API RESTful para gestionar una colección de libros
 
 La API estará disponible en http://localhost:3000
 
-## Desarrollo local sin Docker
+### Opción 2: Desarrollo local sin Docker
 
 Si prefieres desarrollar sin Docker:
 
@@ -48,7 +57,7 @@ Si prefieres desarrollar sin Docker:
    npm install
    ```
 
-3. Crea un archivo .env con la configuración:
+3. Crea un archivo `.env` con la configuración:
    ```
    PORT=3000
    MONGODB_URI=mongodb://localhost:27017/libraryDB
@@ -72,6 +81,7 @@ api-node-docker/
 │   ├── models/       # Modelos de datos
 │   ├── routes/       # Rutas de la API
 │   ├── scripts/      # Scripts de utilidad
+│   ├── seeders/      # Scripts de carga de datos 
 │   └── server.js     # Punto de entrada de la aplicación
 ├── Dockerfile        # Configuración para construir la imagen Docker
 ├── docker-compose.yml # Configuración para orquestar contenedores
@@ -84,6 +94,11 @@ api-node-docker/
 ### Obtener todos los libros
 ```bash
 curl http://localhost:3000/api/books
+```
+
+### Filtrar libros por género
+```bash
+curl http://localhost:3000/api/books?genre=Fantasía
 ```
 
 ### Crear un nuevo libro
@@ -101,6 +116,34 @@ curl -X POST http://localhost:3000/api/books \
   }'
 ```
 
+### Actualizar un libro existente
+```bash
+curl -X PUT http://localhost:3000/api/books/9788401352836 \
+  -H "Content-Type: application/json" \
+  -d '{
+    "available": false
+  }'
+```
+
+### Eliminar un libro
+```bash
+curl -X DELETE http://localhost:3000/api/books/9788401352836
+```
+
+## Comandos útiles
+
+| Comando | Descripción |
+|---------|-------------|
+| `npm run dev` | Inicia el servidor en modo desarrollo con recarga automática |
+| `npm start` | Inicia el servidor en modo producción |
+| `npm run seed` | Carga datos de ejemplo en la base de datos |
+| `docker-compose up` | Inicia los contenedores con Docker Compose |
+| `docker-compose down` | Detiene y elimina los contenedores |
+
 ## Licencia
 
-Este proyecto está bajo la Licencia .
+Este proyecto está bajo la Licencia MIT.
+
+---
+
+<div align="center">Desarrollado con ❤️ por Anthony Rosas Pisco</div>
