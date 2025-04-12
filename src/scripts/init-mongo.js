@@ -67,10 +67,6 @@ const initMongo = async () => {
     } else {
       console.log('La base de datos ya contiene datos, omitiendo inicialización');
     }
-
-    // Cerrar conexión
-    await mongoose.connection.close();
-    console.log('Conexión a MongoDB cerrada');
   } catch (error) {
     console.error('Error al inicializar la base de datos:', error);
   }
